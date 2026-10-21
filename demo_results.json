@@ -1,0 +1,142 @@
+[
+  {
+    "application_id": "81dd5c0b-7e07-4b75-9333-5eb5e239a49b",
+    "status": "completed",
+    "applicant_id": "APP001",
+    "applicant_analysis": {
+      "applicant_id": "APP001",
+      "income_stability_score": 85,
+      "employment_risk": "low",
+      "credit_history_summary": "Good payment history",
+      "application_completeness_flags": [],
+      "analysis_timestamp": "2026-10-19T18:05:53.263016"
+    },
+    "risk_analysis": {
+      "applicant_id": "APP001",
+      "debt_to_income_ratio": 0.667,
+      "credit_score_risk_level": "medium",
+      "loan_amount_risk": "medium",
+      "anomaly_detection_flags": [],
+      "reasoning": "DTI ratio of 66.7% indicates concerning debt levels. Credit score of 720 shows medium. Loan-to-income ratio of 3.33 suggests medium risk.",
+      "analysis_timestamp": "2026-10-19T18:05:53.263100"
+    },
+    "decision": {
+      "applicant_id": "APP001",
+      "classification": "approve",
+      "risk_score": 18.75,
+      "confidence_level": 0.95,
+      "key_decision_factors": [
+        "Strong income stability (85%) supports approval",
+        "Stable employment status is positive",
+        "High debt-to-income ratio (66.70%) raises concerns",
+        "Loan amount risk level is medium"
+      ],
+      "explanation": "Decision: APPROVE. Risk Score: 19/100. Strong income stability (85%) supports approval Stable employment status is positive High debt-to-income ratio (66.70%) raises concerns Loan amount risk level is medium",
+      "decision_timestamp": "2026-10-19T18:05:53.263187"
+    },
+    "compliance": {
+      "applicant_id": "APP001",
+      "case_id": "CASE_4ACC4982",
+      "action_taken": "APPROVE",
+      "notification_sent": true,
+      "timestamp": "2026-10-19T18:05:53.263266",
+      "summary": "Loan application decision executed and applicant notified. Decision: approve"
+    },
+    "processing_time": 0.0,
+    "timestamp": "2026-10-19T18:05:53.263342"
+  },
+  {
+    "application_id": "c5030279-1e0b-49a2-8ec8-94b91b90bf2a",
+    "status": "completed",
+    "applicant_id": "APP002",
+    "applicant_analysis": {
+      "applicant_id": "APP002",
+      "income_stability_score": 70,
+      "employment_risk": "medium",
+      "credit_history_summary": "Good payment history",
+      "application_completeness_flags": [],
+      "analysis_timestamp": "2026-10-19T18:05:53.263492"
+    },
+    "risk_analysis": {
+      "applicant_id": "APP002",
+      "debt_to_income_ratio": 0.316,
+      "credit_score_risk_level": "low",
+      "loan_amount_risk": "medium",
+      "anomaly_detection_flags": [],
+      "reasoning": "DTI ratio of 31.6% indicates good debt management. Credit score of 780 shows low. Loan-to-income ratio of 3.68 suggests medium risk.",
+      "analysis_timestamp": "2026-10-19T18:05:53.263527"
+    },
+    "decision": {
+      "applicant_id": "APP002",
+      "classification": "approve",
+      "risk_score": 9.5,
+      "confidence_level": 0.95,
+      "key_decision_factors": [
+        "Strong income stability (70%) supports approval",
+        "Excellent credit history supports approval",
+        "Low debt-to-income ratio (31.60%) supports approval",
+        "Loan amount risk level is medium"
+      ],
+      "explanation": "Decision: APPROVE. Risk Score: 10/100. Strong income stability (70%) supports approval Excellent credit history supports approval Low debt-to-income ratio (31.60%) supports approval Loan amount risk level is medium",
+      "decision_timestamp": "2026-10-19T18:05:53.263585"
+    },
+    "compliance": {
+      "applicant_id": "APP002",
+      "case_id": "CASE_87C8027B",
+      "action_taken": "APPROVE",
+      "notification_sent": true,
+      "timestamp": "2026-10-19T18:05:53.263635",
+      "summary": "Loan application decision executed and applicant notified. Decision: approve"
+    },
+    "processing_time": 0.0,
+    "timestamp": "2026-10-19T18:05:53.263663"
+  },
+  {
+    "application_id": "6903dbe4-0aa0-46f5-b3d7-d5d1f632a21d",
+    "status": "completed",
+    "applicant_id": "APP003",
+    "applicant_analysis": {
+      "applicant_id": "APP003",
+      "income_stability_score": 60,
+      "employment_risk": "medium",
+      "credit_history_summary": "Good payment history",
+      "application_completeness_flags": [],
+      "analysis_timestamp": "2026-10-19T18:05:53.263740"
+    },
+    "risk_analysis": {
+      "applicant_id": "APP003",
+      "debt_to_income_ratio": 1.667,
+      "credit_score_risk_level": "high",
+      "loan_amount_risk": "medium",
+      "anomaly_detection_flags": [
+        "Extremely high debt-to-income ratio"
+      ],
+      "reasoning": "DTI ratio of 166.7% indicates concerning debt levels. Credit score of 650 shows high. Loan-to-income ratio of 4.17 suggests medium risk.",
+      "analysis_timestamp": "2026-10-19T18:05:53.263763"
+    },
+    "decision": {
+      "applicant_id": "APP003",
+      "classification": "reject",
+      "risk_score": 70.0,
+      "confidence_level": 0.75,
+      "key_decision_factors": [
+        "Income stability concerns (60%) raise questions",
+        "High debt-to-income ratio (166.70%) raises concerns",
+        "Loan amount risk level is medium",
+        "Detected 1 anomalies in application"
+      ],
+      "explanation": "Decision: REJECT. Risk Score: 70/100. Income stability concerns (60%) raise questions High debt-to-income ratio (166.70%) raises concerns Loan amount risk level is medium Detected 1 anomalies in application",
+      "decision_timestamp": "2026-10-19T18:05:53.263795"
+    },
+    "compliance": {
+      "applicant_id": "APP003",
+      "case_id": "CASE_D7CD37FD",
+      "action_taken": "REJECT",
+      "notification_sent": true,
+      "timestamp": "2026-10-19T18:05:53.263820",
+      "summary": "Loan application decision executed and applicant notified. Decision: reject"
+    },
+    "processing_time": 0.0,
+    "timestamp": "2026-10-19T18:05:53.263837"
+  }
+]

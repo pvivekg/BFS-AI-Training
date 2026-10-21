@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏦 AI Loan Application System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .button-group.full {
+            grid-template-columns: 1fr;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-clear {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-clear:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-demo {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            grid-column: 1 / -1;
+        }
+
+        .btn-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(245, 87, 108, 0.3);
+        }
+
+        .result-section {
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+        }
+
+        .decision-badge {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .decision-approve {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .decision-reject {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .decision-review {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .metric {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .metrics-grid.full {
+            grid-template-columns: 1fr;
+        }
+
+        .factors-list {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .factors-list h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .factors-list ul {
+            list-style: none;
+        }
+
+        .factors-list li {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: white;
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+            color: #333;
+        }
+
+        .explanation {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+            margin-top: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #667eea;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .history-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .history-item h4 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .history-item p {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f5576c;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 AI Loan Application System</h1>
+            <p>Intelligent Multi-Agent Loan Processing</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- Application Form -->
+            <div class="card">
+                <h2>📝 Submit Application</h2>
+
+                <form id="applicationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="applicantId">Applicant ID *</label>
+                            <input type="text" id="applicantId" name="applicantId" value="APP001" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age (18-100) *</label>
+                            <input type="number" id="age" name="age" min="18" max="100" value="35" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="income">Annual Income ($) *</label>
+                            <input type="number" id="income" name="income" min="1000" value="75000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="creditScore">Credit Score (300-850) *</label>
+                            <input type="number" id="creditScore" name="creditScore" min="300" max="850" value="720" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="employmentType">Employment Type *</label>
+                            <select id="employmentType" name="employmentType" required>
+                                <option value="employed">Employed</option>
+                                <option value="self_employed">Self-Employed</option>
+                                <option value="unemployed">Unemployed</option>
+                                <option value="retired">Retired</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location *</label>
+                            <select id="location" name="location" required>
+                                <option value="New York">New York</option>
+                                <option value="California">California</option>
+                                <option value="Texas">Texas</option>
+                                <option value="Florida">Florida</option>
+                                <option value="Illinois">Illinois</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="loanAmount">Loan Amount ($) *</label>
+                            <input type="number" id="loanAmount" name="loanAmount" min="1000" value="250000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tenure">Loan Tenure (Years) *</label>
+                            <input type="number" id="tenure" name="tenure" min="1" max="30" value="20" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row full">
+                        <div class="form-group">
+                            <label for="liabilities">Existing Liabilities ($)</label>
+                            <input type="number" id="liabilities" name="liabilities" min="0" value="50000">
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn-submit">🚀 Submit Application</button>
+                        <button type="reset" class="btn-clear">🔄 Clear Form</button>
+                    </div>
+                    <button type="button" class="btn-demo" onclick="loadDemoData()">📊 Load Sample Data</button>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div class="card result-section" id="resultsSection">
+                <h2>✅ Decision Result</h2>
+
+                <div class="loading" id="loadingSpinner">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Processing your application...</div>
+                </div>
+
+                <div id="resultContent" style="display: none;">
+                    <div id="decisionBadge"></div>
+
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <div class="metric-label">Risk Score</div>
+                            <div class="metric-value" id="riskScore">-</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Confidence Level</div>
+                            <div class="metric-value" id="confidenceLevel">-</div>
+                        </div>
+                    </div>
+
+                    <div class="explanation" id="explanation"></div>
+
+                    <div class="factors-list">
+                        <h4>🔍 Key Decision Factors</h4>
+                        <ul id="factorsList"></ul>
+                    </div>
+
+                    <div class="metrics-grid full" style="margin-top: 20px;">
+                        <div class="metric">
+                            <div class="metric-label">Application ID</div>
+                            <div class="metric-value" style="font-size: 1em;" id="applicationId">-</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Case ID</div>
+                            <div class="metric-value" style="font-size: 1em;" id="caseId">-</div>
+                        </div>
+                    </div>
+
+                    <button onclick="showDetails()" class="btn-submit" style="width: 100%; margin-top: 20px;">📋 View Full Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Details and History -->
+        <div class="card">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('analysis')">📊 Analysis Details</button>
+                <button class="tab-btn" onclick="switchTab('history')">📜 History</button>
+                <button class="tab-btn" onclick="switchTab('stats')">📈 Statistics</button>
+            </div>
+
+            <div id="analysis" class="tab-content active">
+                <h3 style="color: #667eea; margin-bottom: 20px;">Financial Analysis</h3>
+                <div id="analysisContent">
+                    <p style="color: #999; text-align: center; padding: 40px;">Submit an application to see detailed analysis</p>
+                </div>
+            </div>
+
+            <div id="history" class="tab-content">
+                <h3 style="color: #667eea; margin-bottom: 20px;">Application History</h3>
+                <div id="historyContent">
+                    <p style="color: #999; text-align: center; padding: 40px;">No applications submitted yet</p>
+                </div>
+            </div>
+
+            <div id="stats" class="tab-content">
+                <h3 style="color: #667eea; margin-bottom: 20px;">System Statistics</h3>
+                <div id="statsContent">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalApps">0</div>
+                            <div class="stat-label">Total Applications</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="approvedApps">0</div>
+                            <div class="stat-label">Approved</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="rejectedApps">0</div>
+                            <div class="stat-label">Rejected</div>
+                        </div>
+                    </div>
+                    <div class="metric" style="grid-column: 1 / -1;">
+                        <div class="metric-label">Approval Rate</div>
+                        <div class="metric-value" id="approvalRate">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let applications = [];
+
+        // Application processing logic
+        document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = {
+                applicant_id: document.getElementById('applicantId').value,
+                age: parseInt(document.getElementById('age').value),
+                income: parseFloat(document.getElementById('income').value),
+                employment_type: document.getElementById('employmentType').value,
+                credit_score: parseInt(document.getElementById('creditScore').value),
+                loan_amount: parseFloat(document.getElementById('loanAmount').value),
+                tenure: parseInt(document.getElementById('tenure').value),
+                existing_liabilities: parseFloat(document.getElementById('liabilities').value),
+                location: document.getElementById('location').value
+            };
+
+            processApplication(formData);
+        });
+
+        function processApplication(data) {
+            // Show results section and loading
+            document.getElementById('resultsSection').classList.add('show');
+            document.getElementById('loadingSpinner').classList.add('show');
+            document.getElementById('resultContent').style.display = 'none';
+
+            // Simulate processing delay
+            setTimeout(() => {
+                const result = analyzeApplication(data);
+                displayResult(result);
+                applications.push(result);
+                updateStats();
+                updateHistory();
+            }, 2000);
+        }
+
+        function analyzeApplication(data) {
+            const id = generateId();
+            const caseId = 'CASE_' + generateId().substring(0, 8).toUpperCase();
+
+            // Applicant Analysis
+            let stabilityScore, employmentRisk;
+            if (data.employment_type === 'employed') {
+                stabilityScore = data.age > 30 ? 85 : 70;
+                employmentRisk = data.age > 30 ? 'low' : 'medium';
+            } else if (data.employment_type === 'self_employed') {
+                stabilityScore = 60;
+                employmentRisk = 'medium';
+            } else {
+                stabilityScore = 30;
+                employmentRisk = 'high';
+            }
+
+            // Financial Analysis
+            const monthlyIncome = data.income / 12;
+            const monthlyLiabilities = data.existing_liabilities / 12;
+            const dti = monthlyIncome > 0 ? monthlyLiabilities / monthlyIncome : 0;
+
+            let creditRisk = data.credit_score >= 750 ? 'low' : data.credit_score >= 700 ? 'medium' : data.credit_score >= 650 ? 'high' : 'very_high';
+
+            const loanToIncome = data.income > 0 ? data.loan_amount / data.income : 0;
+            let loanRisk = loanToIncome <= 3 ? 'low' : loanToIncome <= 5 ? 'medium' : loanToIncome <= 8 ? 'high' : 'very_high';
+
+            const anomalies = [];
+            if (loanToIncome > 10) anomalies.push('Loan amount significantly exceeds annual income');
+            if (dti > 0.7) anomalies.push('Extremely high debt-to-income ratio');
+
+            // Decision Logic
+            let score = 50;
+            score -= stabilityScore * 0.25;
+            score += employmentRisk === 'low' ? -10 : employmentRisk === 'medium' ? 0 : employmentRisk === 'high' ? 10 : 20;
+
+            if (dti < 0.3) score -= 15;
+            else if (dti < 0.5) score -= 8;
+            else if (dti < 0.7) score += 5;
+            else score += 15;
+
+            score += creditRisk === 'low' ? -15 : creditRisk === 'medium' ? -5 : creditRisk === 'high' ? 10 : 20;
+            score += loanRisk === 'low' ? -10 : loanRisk === 'medium' ? 0 : loanRisk === 'high' ? 15 : 25;
+            score += anomalies.length * 10;
+
+            score = Math.max(0, Math.min(100, score));
+
+            let classification, confidence;
+            if (score < 30) {
+                classification = 'approve';
+                confidence = 0.95;
+            } else if (score < 50) {
+                classification = 'approve';
+                confidence = 0.75;
+            } else if (score < 65) {
+                classification = 'review';
+                confidence = 0.80;
+            } else if (score < 80) {
+                classification = 'reject';
+                confidence = 0.75;
+            } else {
+                classification = 'reject';
+                confidence = 0.95;
+            }
+
+            // Key Factors
+            const factors = [];
+            if (stabilityScore >= 70) factors.push(`Strong income stability (${stabilityScore}%) supports approval`);
+            else factors.push(`Income stability concerns (${stabilityScore}%) raise questions`);
+
+            if (employmentRisk === 'low') factors.push('Stable employment status is positive');
+            else if (employmentRisk === 'high') factors.push('Employment risk is a significant concern');
+
+            if (creditRisk === 'low') factors.push('Excellent credit history supports approval');
+            else if (creditRisk === 'very_high') factors.push('Poor credit history raises concerns');
+
+            if (dti < 0.4) factors.push(`Low debt-to-income ratio (${(dti*100).toFixed(2)}%) supports approval`);
+            else if (dti > 0.6) factors.push(`High debt-to-income ratio (${(dti*100).toFixed(2)}%) raises concerns`);
+
+            if (loanRisk !== 'low') factors.push(`Loan amount risk level is ${loanRisk}`);
+            if (anomalies.length > 0) factors.push(`Detected ${anomalies.length} anomalies in application`);
+
+            const explanation = `Decision: ${classification.toUpperCase()}. Risk Score: ${score.toFixed(0)}/100. ${factors.join(' ')}`;
+
+            return {
+                id,
+                caseId,
+                timestamp: new Date().toLocaleString(),
+                applicantId: data.applicant_id,
+                classification,
+                riskScore: score.toFixed(2),
+                confidence: (confidence * 100).toFixed(0),
+                factors,
+                explanation,
+                data: {
+                    stabilityScore: stabilityScore.toFixed(0),
+                    employmentRisk,
+                    dti: dti.toFixed(3),
+                    creditRisk,
+                    loanRisk,
+                    anomalies
+                }
+            };
+        }
+
+        function displayResult(result) {
+            document.getElementById('loadingSpinner').classList.remove('show');
+            document.getElementById('resultContent').style.display = 'block';
+
+            // Badge
+            const badge = document.getElementById('decisionBadge');
+            const badgeClass = result.classification === 'approve' ? 'decision-approve' : result.classification === 'reject' ? 'decision-reject' : 'decision-review';
+            badge.className = `decision-badge ${badgeClass}`;
+            badge.textContent = `${result.classification.toUpperCase()} 📋`;
+
+            // Metrics
+            document.getElementById('riskScore').textContent = `${result.riskScore}/100`;
+            document.getElementById('confidenceLevel').textContent = `${result.confidence}%`;
+            document.getElementById('applicationId').textContent = result.id;
+            document.getElementById('caseId').textContent = result.caseId;
+
+            // Explanation
+            document.getElementById('explanation').textContent = result.explanation;
+
+            // Factors
+            const factorsList = document.getElementById('factorsList');
+            factorsList.innerHTML = result.factors.map(f => `<li>${f}</li>`).join('');
+
+            // Analysis Details
+            const analysis = result.data;
+            document.getElementById('analysisContent').innerHTML = `
+                <div class="metrics-grid full">
+                    <div class="metric">
+                        <div class="metric-label">Income Stability Score</div>
+                        <div class="metric-value">${analysis.stabilityScore}/100</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Employment Risk</div>
+                        <div class="metric-value">${analysis.employmentRisk.toUpperCase()}</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Debt-to-Income Ratio</div>
+                        <div class="metric-value">${(parseFloat(analysis.dti)*100).toFixed(2)}%</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Credit Risk Level</div>
+                        <div class="metric-value">${analysis.creditRisk.toUpperCase()}</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Loan Amount Risk</div>
+                        <div class="metric-value">${analysis.loanRisk.toUpperCase()}</div>
+                    </div>
+                    ${analysis.anomalies.length > 0 ? `
+                    <div class="metric" style="border-left-color: #f5576c;">
+                        <div class="metric-label">Anomalies Detected</div>
+                        <ul style="list-style: none; margin-top: 10px;">
+                            ${analysis.anomalies.map(a => `<li style="margin-bottom: 5px;">⚠️ ${a}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function updateHistory() {
+            const historyContent = document.getElementById('historyContent');
+            if (applications.length === 0) {
+                historyContent.innerHTML = '<p style="color: #999; text-align: center; padding: 40px;">No applications submitted yet</p>';
+            } else {
+                historyContent.innerHTML = applications.map((app, idx) => `
+                    <div class="history-item">
+                        <h4>Application #${idx + 1}: ${app.applicantId}</h4>
+                        <p><strong>Decision:</strong> ${app.classification.toUpperCase()} | <strong>Risk Score:</strong> ${app.riskScore}/100</p>
+                        <p><strong>Case ID:</strong> ${app.caseId}</p>
+                        <p><strong>Submitted:</strong> ${app.timestamp}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateStats() {
+            const total = applications.length;
+            const approved = applications.filter(a => a.classification === 'approve').length;
+            const rejected = applications.filter(a => a.classification === 'reject').length;
+            const approvalRate = total > 0 ? ((approved / total) * 100).toFixed(1) : 0;
+
+            document.getElementById('totalApps').textContent = total;
+            document.getElementById('approvedApps').textContent = approved;
+            document.getElementById('rejectedApps').textContent = rejected;
+            document.getElementById('approvalRate').textContent = `${approvalRate}%`;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function loadDemoData() {
+            document.getElementById('applicantId').value = 'APP' + Math.floor(Math.random() * 1000);
+            document.getElementById('age').value = Math.floor(Math.random() * 50) + 25;
+            document.getElementById('income').value = Math.floor(Math.random() * 150000) + 30000;
+            document.getElementById('creditScore').value = Math.floor(Math.random() * 300) + 500;
+            document.getElementById('loanAmount').value = Math.floor(Math.random() * 500000) + 100000;
+            document.getElementById('tenure').value = Math.floor(Math.random() * 25) + 5;
+            document.getElementById('liabilities').value = Math.floor(Math.random() * 150000);
+        }
+
+        function generateId() {
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        }
+
+        function showDetails() {
+            switchTab('analysis');
+        }
+    </script>
+</body>
+</html>
